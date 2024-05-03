@@ -1,0 +1,16 @@
+Source: timescaledb
+Maintainer: Artem Yevsiukov <a.yevsiukov@gmail.com>
+Section: database
+Priority: optional
+Standards-Version: 4.6.2
+Build-Depends: debhelper-compat (= 13), postgresql-server-dev-14, openssl, libssl-dev, cmake (>= 3.4), make, gcc
+Homepage: https://github.com/timescale/timescaledb
+Vcs-Browser: https://github.com/timescale/timescaledb
+Vcs-Git: https://github.com/timescale/timescaledb.git
+
+Package: timescaledb-postgresql-14
+Architecture: any
+Depends: postgresql-14, ${shlibs:Depends}, ${misc:Depends}
+Description: An open-source time-series database based on PostgreSQL, as an extension.
+ An open-source time-series database optimized for fast ingest and complex queries.
+ Engineered up from PostgreSQL, packaged as an extension.

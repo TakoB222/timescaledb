@@ -1,0 +1,5 @@
+timescaledb (2.14.2-2) jammy; urgency=medium
+
+  * Fix distribution.
+
+ -- Artem Yevsiukov <a.yevsiukov@gmail.com>  Mon, 26 Apr 2023 04:55:00 +0200

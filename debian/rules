@@ -1,0 +1,19 @@
+#!/usr/bin/make -f
+%:
+	dh $@
+override_dh_auto_configure:
+	./bootstrap -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc -DCMAKE_INSTALL_LOCALSTATEDIR=/var -DPG_SHAREDIR=$$(pwd)/debian/timescaledb-2.14.2/share -DPG_PKGLIBDIR=$$(pwd)/debian/timescaledb-2.14.2/lib
+override_dh_auto_clean:
+	rm -fr build
+override_dh_auto_build:
+	$(MAKE) -C build
+override_dh_auto_install:
+	$(MAKE) -C build prefix=/usr install
+	mkdir -p $$(pwd)/debian/timescaledb-loader-postgresql/usr
+	mkdir -p $$(pwd)/debian/timescaledb-postgresql-14/usr/lib/postgresql/14/lib/
+	mkdir -p $$(pwd)/debian/timescaledb-postgresql-14/usr/share/postgresql/14/
+	# Copy tree for simplicity to loader pkg
+	cp -R $$(pwd)/debian/timescaledb-2.14.2/* $$(pwd)/debian/timescaledb-loader-postgresql/
+	# Need to move lib and share into the prefixed /usr dir
+	mv $$(pwd)/debian/timescaledb-loader-postgresql/lib/* $$(pwd)/debian/timescaledb-postgresql-14/usr/lib/postgresql/14/lib/
+	mv $$(pwd)/debian/timescaledb-loader-postgresql/share/* $$(pwd)/debian/timescaledb-postgresql-14/usr/share/postgresql/14/ 
